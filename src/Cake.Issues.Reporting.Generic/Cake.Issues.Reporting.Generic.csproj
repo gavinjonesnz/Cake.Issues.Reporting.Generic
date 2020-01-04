@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
     <!-- <NoWarn>1701;1702;</NoWarn> -->
     <NoWarn>1701;1702;SA0001;SA1633;CA1062;CA1303;CA1305;CA1307;CA1721;NU1701</NoWarn>
     
@@ -12,10 +12,16 @@
     <Product>Cake.Issues</Product>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Issues.Reporting.Generic.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.0|AnyCPU'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Issues.Reporting.Generic.xml</DocumentationFile>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Issues.Reporting.Generic.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Issues.Reporting.Generic.xml</DocumentationFile>
   </PropertyGroup>
 
@@ -23,11 +29,16 @@
       <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
           <_Parameter1>$(AssemblyName).Tests</_Parameter1>
       </AssemblyAttribute>
-      <!-- <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Issues.Reporting.xml</DocumentationFile> -->
     </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\DataTable.cshtml" />
+    <EmbeddedResource Include="Templates\Diagnostic.cshtml" />
+    <EmbeddedResource Include="Templates\DxDataGrid.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,14 +68,5 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
-<!-- [assembly: AssemblyTitle("Cake.Issues.Reporting.Generic")]
-[assembly: AssemblyDescription("Support for creating issue reports in any text based format (HTML, Markdown, ...) from the Cake.Issues Addin for Cake Build Automation System")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Cake.Issues")]
-[assembly: AssemblyCopyright("Copyright © Pascal Berger and contributors")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")] -->
 
 </Project>
