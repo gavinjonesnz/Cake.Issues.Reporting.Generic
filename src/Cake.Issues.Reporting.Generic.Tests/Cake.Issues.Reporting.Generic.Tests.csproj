@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- <TargetFrameworks>netstandard2.0;net461</TargetFrameworks> -->
-    <TargetFrameworks>net461;netcoreapp2.0;</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
     <!-- <NoWarn>1701;1702;CA1707</NoWarn> -->
     <NoWarn>1701;1702;SA0001;SA1633;CA1034;CA1054;CA1062;CA1303;CA1305;CA1307;CA1707;CA1721;NU1701</NoWarn>
 
@@ -36,15 +35,17 @@
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
     </PackageReference>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="xunit">
       <Version>2.4.1</Version>
     </PackageReference>
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio">
       <Version>2.4.1</Version>
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
     <PackageReference Include="Cake.Issues">
       <Version>0.8.0</Version>
     </PackageReference>
