@@ -1,4 +1,5 @@
-﻿namespace Cake.Issues.Reporting.Generic
+﻿#if NET461
+namespace Cake.Issues.Reporting.Generic
 {
     using System;
     using System.Collections.Generic;
@@ -52,3 +53,4 @@
         }
     }
 }
+#endif
