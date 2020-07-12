@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Cake.Core.IO;
-
-namespace Cake.Issues.Reporting.Generic
+﻿namespace Cake.Issues.Reporting.Generic
 {
+    using System.Collections.Generic;
+    using Cake.Core.IO;
+
     internal interface IGenericIssueReportGenerator
     {
         void Configure();

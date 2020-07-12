@@ -1,60 +1,23 @@
 ﻿namespace Cake.Issues.Reporting.Generic
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Dynamic;
 
-    /// <summary>
-    /// Extension methods for Dictionary.
-    /// </summary>
     public static class DictionaryExtensions
     {
-        /// <summary>
-        /// Extension method that turns a dictionary of string and object to an ExpandoObject.
-        /// </summary>
-        /// <param name="dictionary">The dictionary.</param>
-        /// <returns><see cref="ExpandoObject"/>ExpandoObject.</returns>
-        public static ExpandoObject ToExpando(this IDictionary<string, object> dictionary)
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
-            var expando = new ExpandoObject();
-            var expandoDic = (IDictionary<string, object>)expando;
-
-            // go through the items in the dictionary and copy over the key value pairs)
-            foreach (var kvp in dictionary)
+            foreach (var item in items)
             {
-                // if the value can also be turned into an ExpandoObject, then do it!
-                if (kvp.Value is IDictionary<string, object>)
-                {
-                    var expandoValue = ((IDictionary<string, object>)kvp.Value).ToExpando();
-                    expandoDic.Add(kvp.Key, expandoValue);
-                }
-                else if (kvp.Value is ICollection)
-                {
-                    // iterate through the collection and convert any strin-object dictionaries
-                    // along the way into expando objects
-                    var itemList = new List<object>();
-                    foreach (var item in (ICollection)kvp.Value)
-                    {
-                        if (item is IDictionary<string, object>)
-                        {
-                            var expandoItem = ((IDictionary<string, object>)item).ToExpando();
-                            itemList.Add(expandoItem);
-                        }
-                        else
-                        {
-                            itemList.Add(item);
-                        }
-                    }
-
-                    expandoDic.Add(kvp.Key, itemList);
-                }
-                else
-                {
-                    expandoDic.Add(kvp);
-                }
+                collection.Add(item);
             }
+        }
 
-            return expando;
+        public static dynamic ToExpandoObject(this IDictionary<string, object> source)
+        {
+            var ex = new ExpandoObject();
+            ex.AddRange(source);
+            return ex;
         }
     }
 }

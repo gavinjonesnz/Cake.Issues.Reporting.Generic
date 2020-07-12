@@ -1,5 +1,8 @@
 ﻿namespace Cake.Issues.Reporting.Generic
 {
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// Helper for working with the ViewBag in templates.
     /// </summary>
@@ -20,6 +23,30 @@
             }
 
             return defaultValue;
+        }
+
+        /// <summary>
+        /// Returns a list of ViewBag properties gleaned from the given template via regex.
+        /// </summary>
+        /// <param name="template">Razor template to examine.</param>
+        /// <param name="defaultoptions">Default values for the returned dictionary.</param>
+        /// <returns>Dictionary containing keys corresponding to ViewBag properties, with default null values</returns>
+        public static IDictionary<string, object> ParsePropertiesFromTemplate(string template, Dictionary<string, object> defaultoptions)
+        {
+            Dictionary<string, object> ret = new Dictionary<string, object>(defaultoptions);
+            Regex r = new Regex(@"ViewBag\.[a-zA-Z0-9_]*\b", RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline);
+
+            var matches = r.Matches(template);
+            foreach (Match m in matches)
+            {
+                var key = m.Value.Replace("ViewBag.", string.Empty);
+                if (!ret.ContainsKey(key))
+                {
+                    ret.Add(key, null);
+                }
+            }
+
+            return ret;
         }
     }
 }
