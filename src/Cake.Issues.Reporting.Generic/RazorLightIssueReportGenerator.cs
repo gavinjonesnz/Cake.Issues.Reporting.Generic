@@ -46,11 +46,12 @@ namespace Cake.Issues.Reporting.Generic
                 var defaultoptions = this.genericIssueReportFormatSettings.Options;
                 var options = ViewBagHelper.ParsePropertiesFromTemplate(this.genericIssueReportFormatSettings.Template, defaultoptions);
 
-                var result = this.engine.CompileRenderStringAsync(
-                    Guid.NewGuid().ToString(),
-                    this.genericIssueReportFormatSettings.Template,
-                    issues,
-                    options.ToExpandoObject())
+                var result = this.engine
+                    .CompileRenderStringAsync(
+                        Guid.NewGuid().ToString(),
+                        this.genericIssueReportFormatSettings.Template,
+                        issues,
+                        options.ToExpandoObject())
                     .Result;
                 File.WriteAllText(this.Settings.OutputFilePath.FullPath, result);
 
